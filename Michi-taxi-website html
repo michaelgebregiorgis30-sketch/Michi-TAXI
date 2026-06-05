@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Michi Taxi – Winterthur</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue:    #1a3a6b;
+    --blue2:   #2a5298;
+    --silver:  #c0c8d8;
+    --black:   #0d0d0d;
+    --dark:    #111827;
+    --gray:    #1e2535;
+    --light:   #f0f2f7;
+    --white:   #ffffff;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top:0; left:0; width:100%; z-index:100;
+    padding: 16px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(13,13,13,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(192,200,216,0.1);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 3px;
+    color: var(--white);
+  }
+
+  .nav-logo span { color: var(--silver); }
+
+  .nav-links { display:flex; gap:28px; }
+  .nav-links a {
+    color: var(--silver); font-size: 13px;
+    letter-spacing: 1.5px; text-decoration: none;
+    text-transform: uppercase; opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+
+  .nav-cta {
+    background: var(--blue2);
+    color: #fff !important; opacity: 1 !important;
+    padding: 8px 20px; border-radius: 6px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    padding: 120px 8vw 80px;
+    position: relative; overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset:0; z-index:0;
+    background: linear-gradient(135deg, #0d0d0d 0%, #0a1628 50%, #0d1f45 100%);
+  }
+
+  .hero-grid {
+    position: absolute; inset:0; z-index:0;
+    background-image:
+      linear-gradient(rgba(42,82,152,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(42,82,152,0.07) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-glow {
+    position: absolute; top:-20%; right:-10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(42,82,152,0.25) 0%, transparent 70%);
+    z-index:0;
+  }
+
+  .hero-content { position: relative; z-index:1; max-width: 700px; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap:8px;
+    background: rgba(42,82,152,0.2);
+    border: 1px solid rgba(42,82,152,0.4);
+    padding: 6px 16px; border-radius: 20px;
+    font-size: 11px; letter-spacing: 2px; color: var(--silver);
+    text-transform: uppercase; margin-bottom: 28px;
+    animation: fadeDown 0.8s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 10vw, 120px);
+    line-height: 0.88; letter-spacing: 2px;
+    animation: fadeDown 0.8s 0.1s ease both;
+  }
+
+  .hero h1 span { color: var(--silver); }
+
+  .hero-tagline {
+    font-size: 18px; font-weight: 300;
+    color: var(--silver); margin: 24px 0 40px;
+    line-height: 1.6; max-width: 480px;
+    animation: fadeDown 0.8s 0.2s ease both;
+  }
+
+  .hero-tagline em {
+    font-style: italic; color: var(--white); font-weight: 400;
+  }
+
+  .hero-buttons {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    animation: fadeDown 0.8s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--blue2); color: #fff;
+    padding: 16px 32px; border-radius: 8px;
+    font-size: 14px; font-weight: 500; letter-spacing: 1px;
+    text-decoration: none; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 32px rgba(42,82,152,0.4);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 48px rgba(42,82,152,0.5);
+  }
+
+  .btn-whatsapp {
+    background: #25D366; color: #fff;
+    padding: 16px 32px; border-radius: 8px;
+    font-size: 14px; font-weight: 500; letter-spacing: 1px;
+    text-decoration: none; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 32px rgba(37,211,102,0.3);
+  }
+
+  .btn-whatsapp:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 48px rgba(37,211,102,0.4);
+  }
+
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: var(--silver); font-size: 10px; letter-spacing: 2px;
+    text-transform: uppercase; opacity: 0.5;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ── STATS ── */
+  .stats {
+    background: var(--gray);
+    border-top: 1px solid rgba(192,200,216,0.1);
+    border-bottom: 1px solid rgba(192,200,216,0.1);
+    padding: 48px 8vw;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px; color: var(--silver);
+    line-height: 1; letter-spacing: 2px;
+  }
+  .stat-label {
+    font-size: 11px; color: #666;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 8vw; }
+
+  .section-label {
+    font-size: 11px; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--blue2);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 5vw, 60px);
+    letter-spacing: 2px; line-height: 1;
+    margin-bottom: 24px;
+  }
+
+  .section-title span { color: var(--silver); }
+
+  /* ── ABOUT ── */
+  .about { background: var(--dark); }
+
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center; margin-top: 60px;
+  }
+
+  .about-text p {
+    color: var(--silver); font-size: 16px;
+    line-height: 1.8; font-weight: 300;
+    margin-bottom: 20px;
+  }
+
+  .about-faith {
+    background: rgba(42,82,152,0.1);
+    border-left: 3px solid var(--blue2);
+    padding: 20px 24px; border-radius: 0 8px 8px 0;
+    margin-top: 24px;
+  }
+
+  .about-faith p {
+    font-style: italic; font-size: 15px;
+    color: var(--silver) !important; margin:0 !important;
+  }
+
+  .about-car {
+    background: linear-gradient(135deg, var(--gray), var(--dark));
+    border: 1px solid rgba(192,200,216,0.1);
+    border-radius: 16px; padding: 48px;
+    text-align: center; position: relative; overflow: hidden;
+  }
+
+  .about-car::before {
+    content: '';
+    position: absolute; inset:0;
+    background: radial-gradient(circle at 50% 50%, rgba(42,82,152,0.15), transparent 70%);
+  }
+
+  .car-emoji { font-size: 96px; display:block; margin-bottom: 20px; }
+
+  .car-specs {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-top: 24px;
+  }
+
+  .spec {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(192,200,216,0.1);
+    border-radius: 8px; padding: 12px 16px;
+    text-align: left;
+  }
+
+  .spec-label { font-size: 10px; color: #555; letter-spacing: 1px; text-transform: uppercase; }
+  .spec-value { font-size: 14px; color: var(--silver); font-weight: 500; margin-top: 2px; }
+
+  /* ── SERVICES ── */
+  .services { background: var(--black); }
+
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px; margin-top: 60px;
+  }
+
+  .service-card {
+    background: var(--gray);
+    border: 1px solid rgba(192,200,216,0.08);
+    border-radius: 16px; padding: 36px 28px;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+
+  .service-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(42,82,152,0.4);
+  }
+
+  .service-icon { font-size: 40px; margin-bottom: 20px; display:block; }
+  .service-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; letter-spacing: 2px;
+    color: var(--silver); margin-bottom: 12px;
+  }
+  .service-desc { font-size: 14px; color: #666; line-height: 1.7; }
+
+  /* ── PRICES ── */
+  .prices { background: var(--dark); }
+
+  .prices-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px; margin-top: 60px;
+  }
+
+  .price-card {
+    background: var(--gray);
+    border: 1px solid rgba(192,200,216,0.08);
+    border-radius: 16px; padding: 36px 28px;
+    text-align: center;
+  }
+
+  .price-card.featured {
+    border-color: var(--blue2);
+    background: linear-gradient(135deg, var(--gray), rgba(42,82,152,0.15));
+    position: relative;
+  }
+
+  .price-card.featured::before {
+    content: 'BELIEBT';
+    position: absolute; top:-12px; left:50%; transform:translateX(-50%);
+    background: var(--blue2); color:#fff;
+    font-size: 10px; letter-spacing: 2px; padding: 4px 14px;
+    border-radius: 20px;
+  }
+
+  .price-route { font-size: 13px; color: #666; letter-spacing: 1px; margin-bottom: 16px; }
+  .price-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px; color: var(--silver); letter-spacing: 2px;
+  }
+  .price-amount span { font-size: 20px; }
+  .price-desc { font-size: 13px; color: #555; margin-top: 12px; line-height: 1.6; }
+
+  /* ── BOOKING ── */
+  .booking { background: var(--black); }
+
+  .booking-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: start; margin-top: 60px;
+  }
+
+  .booking-info h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 2px; color: var(--silver);
+    margin-bottom: 16px;
+  }
+
+  .booking-info p { font-size: 15px; color: #666; line-height: 1.8; margin-bottom: 24px; }
+
+  .contact-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(192,200,216,0.08);
+  }
+
+  .contact-icon { font-size: 22px; width: 36px; text-align: center; }
+  .contact-label { font-size: 11px; color: #555; letter-spacing: 1px; text-transform: uppercase; }
+  .contact-value { font-size: 16px; color: var(--silver); font-weight: 500; }
+
+  .booking-form {
+    background: var(--gray);
+    border: 1px solid rgba(192,200,216,0.08);
+    border-radius: 20px; padding: 40px;
+  }
+
+  .booking-form h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 2px;
+    color: var(--silver); margin-bottom: 28px;
+  }
+
+  .form-group { margin-bottom: 18px; }
+
+  label {
+    display: block; font-size: 11px; letter-spacing: 1.5px;
+    color: var(--blue2); text-transform: uppercase; margin-bottom: 8px;
+  }
+
+  input, textarea, select {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(192,200,216,0.12);
+    border-radius: 10px; padding: 14px 16px;
+    color: var(--white); font-family: 'DM Sans', sans-serif;
+    font-size: 15px; outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--blue2);
+    box-shadow: 0 0 0 3px rgba(42,82,152,0.15);
+  }
+
+  input[type="datetime-local"] { color-scheme: dark; }
+
+  select option { background: var(--dark); }
+
+  textarea { resize: none; height: 90px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .wa-submit {
+    width: 100%; background: #25D366; color: #fff;
+    border: none; border-radius: 12px; padding: 18px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; letter-spacing: 2px;
+    cursor: pointer; margin-top: 8px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 32px rgba(37,211,102,0.3);
+  }
+
+  .wa-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 40px rgba(37,211,102,0.4);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid rgba(192,200,216,0.08);
+    padding: 48px 8vw;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 24px;
+  }
+
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px; letter-spacing: 3px; color: var(--silver);
+  }
+
+  .footer-faith {
+    font-style: italic; font-size: 14px;
+    color: #444; letter-spacing: 1px;
+  }
+
+  .footer-copy { font-size: 12px; color: #333; letter-spacing: 1px; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 6vw 60px; }
+    .stats { grid-template-columns: repeat(2,1fr); padding: 40px 6vw; }
+    section { padding: 60px 6vw; }
+    .about-grid, .booking-inner { grid-template-columns: 1fr; gap: 40px; }
+    .services-grid, .prices-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; text-align: center; padding: 36px 6vw; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MICHI <span>TAXI</span></div>
+  <div class="nav-links">
+    <a href="#about">Über mich</a>
+    <a href="#services">Leistungen</a>
+    <a href="#prices">Preise</a>
+    <a href="#booking" class="nav-cta">Jetzt buchen</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🚙 Winterthur & Umgebung</div>
+    <h1>MICHI<br><span>TAXI</span></h1>
+    <p class="hero-tagline">
+      Ihr zuverlässiger Taxifahrer in Winterthur.<br>
+      <em>Mit Gott sicher ans Ziel.</em>
+    </p>
+    <div class="hero-buttons">
+      <a href="#booking" class="btn-primary">✉ Jetzt buchen</a>
+      <a href="https://wa.me/41763238832" class="btn-whatsapp" target="_blank">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll">▼ scroll</div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="stat-num">2</div><div class="stat-label">Fahrzeuge</div></div>
+  <div class="stat"><div class="stat-num">7</div><div class="stat-label">Max. Sitze</div></div>
+  <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Verfügbar</div></div>
+  <div class="stat"><div class="stat-num">076</div><div class="stat-label">323 88 32</div></div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-label">Über mich</div>
+  <div class="section-title">Ihr Fahrer<br><span>Michael</span></div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Willkommen bei Michi Taxi – Ihrem persönlichen Taxiservice in Winterthur und der ganzen Region. Ich bin Michael, Ihr zuverlässiger und freundlicher Fahrer.</p>
+      <p>Mit meinem komfortablen Peugeot 5008 biete ich Platz für bis zu 7 Personen und sorge dafür, dass Sie sicher, pünktlich und entspannt ans Ziel kommen – ob zum Flughafen, zu Festivals, Arztbesuchen oder privaten Anlässen.</p>
+      <p>Für mich ist Fahren mehr als ein Beruf – es ist meine Berufung, Menschen sicher zu begleiten.</p>
+      <div class="about-faith">
+        <p>«Mit Gott sicher ans Ziel» – dieser Satz begleitet mich auf jeder Fahrt und gibt mir und meinen Fahrgästen Vertrauen und Frieden.</p>
+      </div>
+    </div>
+    <div class="about-car">
+      <span class="car-emoji">🚙</span>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--silver);">Peugeot 5008</div>
+      <div style="font-size:13px;color:#555;margin-top:4px;letter-spacing:1px;">2026 · Schwarz</div>
+      <div class="car-specs">
+        <div class="spec"><div class="spec-label">Sitze</div><div class="spec-value">7 Personen</div></div>
+        <div class="spec"><div class="spec-label">Klasse</div><div class="spec-value">Premium SUV</div></div>
+        <div class="spec"><div class="spec-label">Klima</div><div class="spec-value">✓ Vollausstattung</div></div>
+        <div class="spec"><div class="spec-label">Gepäck</div><div class="spec-value">✓ Grosser Kofferraum</div></div>
+      </div>
+      <div style="margin-top:24px;padding-top:24px;border-top:1px solid rgba(192,200,216,0.1);">
+        <span class="car-emoji" style="font-size:64px;">🚗</span>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--silver);">Skoda Kamiq</div>
+        <div style="font-size:13px;color:#555;margin-top:4px;letter-spacing:1px;">Kompakt SUV</div>
+        <div class="car-specs" style="margin-top:16px;">
+          <div class="spec"><div class="spec-label">Sitze</div><div class="spec-value">5 Personen</div></div>
+          <div class="spec"><div class="spec-label">Klasse</div><div class="spec-value">Kompakt SUV</div></div>
+          <div class="spec"><div class="spec-label">Klima</div><div class="spec-value">✓ Klimaanlage</div></div>
+          <div class="spec"><div class="spec-label">Ideal für</div><div class="spec-value">Stadtfahrten</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-label">Leistungen</div>
+  <div class="section-title">Was ich<br><span>anbiete</span></div>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-icon">✈️</span>
+      <div class="service-title">Flughafen Transfers</div>
+      <p class="service-desc">Zuverlässige Fahrten zum Flughafen Zürich und zurück. Pünktlich, stressfrei, mit Gepäckbegleitung.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🎪</span>
+      <div class="service-title">Festivals & Events</div>
+      <p class="service-desc">Openair Frauenfeld, Street Parade, Stars in Town – ich bringe Sie sicher hin und wieder nach Hause.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🏥</span>
+      <div class="service-title">Arzt & Spital</div>
+      <p class="service-desc">Für Arzttermine, Spitalbesuche oder Therapien. Diskret, ruhig und zuverlässig.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">👥</span>
+      <div class="service-title">Gruppenfahrten</div>
+      <p class="service-desc">Mit dem Peugeot 5008 biete ich Platz für bis zu 7 Personen – ideal für Gruppen und Familien.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🌙</span>
+      <div class="service-title">Nachtfahrten</div>
+      <p class="service-desc">Nach dem Ausgang, der Party oder spät vom Bahnhof – ich bin auch nachts für Sie da.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">📦</span>
+      <div class="service-title">Umzug & Transport</div>
+      <p class="service-desc">Kleintransporte, Einkäufe oder Gepäck – der grosse SUV bietet viel Platz für Ihre Güter.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICES -->
+<section class="prices" id="prices">
+  <div class="section-label">Preise</div>
+  <div class="section-title">Faire<br><span>Tarife</span></div>
+  <div class="prices-grid">
+    <div class="price-card">
+      <div class="price-route">WINTERTHUR INNENSTADT</div>
+      <div class="price-amount"><span>ab CHF </span>15</div>
+      <div class="price-desc">Kurzstrecken & Stadtfahrten im Raum Winterthur</div>
+    </div>
+    <div class="price-card featured">
+      <div class="price-route">FLUGHAFEN ZÜRICH</div>
+      <div class="price-amount"><span>ab CHF </span>60</div>
+      <div class="price-desc">Komfortable Direktfahrt – kein Umsteigen, kein Stress</div>
+    </div>
+    <div class="price-card">
+      <div class="price-route">FESTIVALS & EVENTS</div>
+      <div class="price-amount"><span>ab CHF </span>30</div>
+      <div class="price-desc">Openair, Konzerte & Veranstaltungen in der Region</div>
+    </div>
+  </div>
+  <p style="text-align:center;color:#555;font-size:13px;margin-top:32px;font-style:italic;">Individuelle Preise auf Anfrage – einfach WhatsApp schreiben!</p>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+  <div class="section-label">Buchung</div>
+  <div class="section-title">Fahrt<br><span>buchen</span></div>
+  <div class="booking-inner">
+    <div class="booking-info">
+      <h3>Direkter Kontakt</h3>
+      <p>Schreiben Sie mir auf WhatsApp oder rufen Sie mich an – ich antworte so schnell wie möglich und bestätige Ihre Fahrt.</p>
+      <div class="contact-item">
+        <span class="contact-icon">📱</span>
+        <div>
+          <div class="contact-label">Telefon & WhatsApp</div>
+          <div class="contact-value">076 323 88 32</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">👤</span>
+        <div>
+          <div class="contact-label">Fahrer</div>
+          <div class="contact-value">Michael</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">📍</span>
+        <div>
+          <div class="contact-label">Region</div>
+          <div class="contact-value">Winterthur & Umgebung</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">🕐</span>
+        <div>
+          <div class="contact-label">Verfügbarkeit</div>
+          <div class="contact-value">24 Stunden, 7 Tage</div>
+        </div>
+      </div>
+      <a href="https://wa.me/41763238832" target="_blank" class="btn-whatsapp" style="margin-top:28px;display:inline-flex;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Direkt auf WhatsApp
+      </a>
+    </div>
+
+    <div class="booking-form">
+      <h3>Fahrt anfragen</h3>
+      <div class="form-group">
+        <label>Fahrzeug wählen</label>
+        <select id="b-car">
+          <option>🚙 Peugeot 5008 (bis 7 Personen)</option>
+          <option>🚗 Skoda Kamiq (bis 5 Personen)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Ihr Name</label>
+        <input type="text" id="b-name" placeholder="z.B. Anna Müller">
+      </div>
+      <div class="form-group">
+        <label>Datum & Uhrzeit</label>
+        <input type="datetime-local" id="b-datetime">
+      </div>
+      <div class="form-group">
+        <label>Abholort</label>
+        <input type="text" id="b-pickup" placeholder="z.B. Bahnhof Winterthur">
+      </div>
+      <div class="form-group">
+        <label>Zielort</label>
+        <input type="text" id="b-dest" placeholder="z.B. Flughafen Zürich">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Personen</label>
+          <select id="b-persons">
+            <option>1 Person</option>
+            <option>2 Personen</option>
+            <option>3 Personen</option>
+            <option>4 Personen</option>
+            <option>5 Personen</option>
+            <option>6 Personen</option>
+            <option>7 Personen</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Ihre Telefonnummer</label>
+          <input type="tel" id="b-phone" placeholder="07x xxx xx xx">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Bemerkungen</label>
+        <textarea id="b-notes" placeholder="Gepäck, Kindersitz, besondere Wünsche…"></textarea>
+      </div>
+      <button class="wa-submit" onclick="submitBooking()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Via WhatsApp senden
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">MICHI TAXI</div>
+  <div class="footer-faith">Mit Gott sicher ans Ziel</div>
+  <div class="footer-copy">© 2026 Michael · 076 323 88 32 · Winterthur</div>
+</footer>
+
+<script>
+  const now = new Date();
+  now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+  const dtInput = document.getElementById('b-datetime');
+  if (dtInput) dtInput.min = now.toISOString().slice(0,16);
+
+  function submitBooking() {
+    const car     = document.getElementById('b-car').value;
+    const name    = document.getElementById('b-name').value.trim();
+    const dt      = document.getElementById('b-datetime').value;
+    const pickup  = document.getElementById('b-pickup').value.trim();
+    const dest    = document.getElementById('b-dest').value.trim();
+    const persons = document.getElementById('b-persons').value;
+    const phone   = document.getElementById('b-phone').value.trim();
+    const notes   = document.getElementById('b-notes').value.trim();
+
+    if (!name || !dt || !pickup || !dest) {
+      alert('Bitte füllen Sie Name, Datum, Abholort und Zielort aus.');
+      return;
+    }
+
+    const d = new Date(dt);
+    const formatted = d.toLocaleString('de-CH', {
+      weekday:'long', day:'2-digit', month:'2-digit',
+      year:'numeric', hour:'2-digit', minute:'2-digit'
+    });
+
+    const msg =
+      `🚙 *MICHI TAXI – Buchungsanfrage*\n\n` +
+      `🚗 *Fahrzeug:* ${car}\n` +
+      `👤 *Name:* ${name}\n` +
+      `📅 *Datum & Zeit:* ${formatted}\n` +
+      `📍 *Abholort:* ${pickup}\n` +
+      `🏁 *Zielort:* ${dest}\n` +
+      `👥 *Personen:* ${persons}\n` +
+      (phone ? `📞 *Tel:* ${phone}\n` : '') +
+      (notes ? `💬 *Bemerkungen:* ${notes}\n` : '') +
+      `\nMit Gott sicher ans Ziel`;
+
+    window.open(`https://wa.me/41763238832?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+</script>
+</body>
+</html>
